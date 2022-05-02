@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    
+    "token": "OTcwMzM1NDQ2OTkzMzUwNjY2.GNGRQx.UunFccAUybw1zEnujHZZJxlrd44u_NjyZzfymE",
+    "applicationId": "970335446993350666",
+
+    "activity": {
+        "type": "PLAYING",
+        "name": "Luauth v1.0.0"
+    },
+
+    "embeds": {
+        "success_color": "#99ff99",
+        "default_title": "Luauth",
+        "defualt_footer": "https://luauth.xyz/"
+    }
+}
