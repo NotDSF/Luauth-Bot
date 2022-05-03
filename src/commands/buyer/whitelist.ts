@@ -1,10 +1,10 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
-import { FedEmbed } from "../../modules/types"
+import { FedEmbed, ScriptInstance } from "../../modules/types"
 import fetch from "node-fetch";
 
 module.exports = {
-    execute: async (interaction: CommandInteraction, ApiKey: string, ScriptID: string) => {
+    execute: async (interaction: CommandInteraction, ApiKey: string, ScriptID: string, ScriptCache: any) => {
         const Identifier = interaction.options.getString("identifier", true);
         const Expire = interaction.options.getNumber("expire") || 0;
         const Note = interaction.options.getString("note") || ""
@@ -34,11 +34,12 @@ module.exports = {
         .setDescription(`${Response.message} <@${interaction.user.id}>`)
         .setColor(Response.success ? "#99ff99" : "#ff9999");
 
+        const Script = ScriptCache.find((a: ScriptInstance) => a.script_id === ScriptID);
         // modern problems require modern solutions
         if (Response.success) {
             Embed.addFields([
                 { name: "Note", value: `\`${Note.length ? Note : "No note was specified"}\`` },
-                { name: "Script ID", value: `\`${ScriptID}\`` },
+                { name: "Script Name", value: `\`${Script.script_name}\`` },
             ]);
         }
 

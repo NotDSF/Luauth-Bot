@@ -3,7 +3,7 @@ let config = require("../../config.json");
 
 interface Command {
     name: string,
-    execute: (interaction: CommandInteraction, ApiKey?: string, ScriptId?: string) => void,
+    execute: (interaction: CommandInteraction, ApiKey?: string, ScriptId?: string, ScriptCache?: any) => void,
     AuthRequired?: boolean,
     ScriptRequired?: boolean
 }

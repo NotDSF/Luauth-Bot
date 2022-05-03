@@ -15,6 +15,7 @@ const client = new Discord.Client({
 let Commands = new Map();
 let SlashCommands: any = [];
 let Selected = new Map();
+let ScriptCache = new Map();
 let Authorized = require("../SavedKeys.json");
 let config = require("../config.json");
 
@@ -92,7 +93,7 @@ client.on("interactionCreate", async (interaction) => {
     }
 
     try {
-        CommandData.execute(interaction, Authorized.Keys[User.id], Selected.get(interaction.user.id));
+        CommandData.execute(interaction, Authorized.Keys[User.id], Selected.get(interaction.user.id), ScriptCache.get(interaction.user.id));
     } catch (er: any) {
         logger.error(er.toString());   
     }
@@ -102,18 +103,25 @@ client.on("interactionCreate", async (interaction) => {
     if (!interaction.isSelectMenu()) return;
 
     if (interaction.customId === "select") {
-        const Response = await fetch(`https://api.luauth.xyz/v2/keys/${Authorized.Keys[interaction.user.id]}/details`)
+        let Scripts = ScriptCache.get(interaction.user.id);
 
-        if (Response.status !== 200) {
-            const Embed = FedEmbed()
-            .setDescription("There was an error running this command. Try again later?")
-            .setColor("#ff9999");
-            return await interaction.reply({ embeds: [Embed], ephemeral: true });
+        if (!Scripts) {  
+            const Response = await fetch(`https://api.luauth.xyz/v2/keys/${Authorized.Keys[interaction.user.id]}/details`)
+
+            if (Response.status !== 200) {
+                const Embed = FedEmbed()
+                .setDescription("There was an error running this command. Try again later?")
+                .setColor("#ff9999");
+                return await interaction.reply({ embeds: [Embed], ephemeral: true });
+            }
+            
+            Scripts = await Response.json();
+            Scripts = Scripts.scripts; // kill me
+            ScriptCache.set(interaction.user.id, Scripts);
         }
 
-        const ResponseJSON: KeyResponse = await Response.json();
-        let Script: any = ResponseJSON.scripts.find((script: ScriptInstance) => script.script_id == interaction.values[0]);
-        
+        let Script = Scripts.find((script: ScriptInstance) => script.script_id == interaction.values[0]);
+
         const Embed = FedEmbed()
         .setDescription(`This script has been selected <@${interaction.user.id}>`)
         .addFields([
