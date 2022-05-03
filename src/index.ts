@@ -65,7 +65,7 @@ client.on("interactionCreate", async (interaction) => {
         if (Response.status !== 200) {
             const Embed = FedEmbed()
             .setDescription(`This api key is invalid!`)
-            .setColor("#ff6c6c");
+            .setColor("#ff9999");
             return await interaction.reply({ embeds: [Embed], ephemeral: true });
         }
 
@@ -80,14 +80,14 @@ client.on("interactionCreate", async (interaction) => {
     if (CommandData.AuthRequired && !Authorized.Keys[User.id]) {
         const Embed = FedEmbed()
         .setDescription(`You don't have an api key linked, link one using the \`/login\` command!`)
-        .setColor("#ff6c6c");
+        .setColor("#ff9999");
         return await interaction.reply({ embeds: [Embed], ephemeral: true });
     }
 
     if (CommandData.ScriptRequired && !Selected.get(interaction.user.id)) {
         const Embed = FedEmbed()
         .setDescription(`You don't have a script selected, select one using the \`/scripts\` command!`)
-        .setColor("#ff6c6c");
+        .setColor("#ff9999");
         return await interaction.reply({ embeds: [Embed], ephemeral: true });
     }
 
@@ -107,7 +107,7 @@ client.on("interactionCreate", async (interaction) => {
         if (Response.status !== 200) {
             const Embed = FedEmbed()
             .setDescription("There was an error running this command. Try again later?")
-            .setColor("#ff6c6c");
+            .setColor("#ff9999");
             return await interaction.reply({ embeds: [Embed], ephemeral: true });
         }
 
@@ -125,7 +125,7 @@ client.on("interactionCreate", async (interaction) => {
 
         await interaction.update({ embeds: [Embed], components: [] });
         Selected.set(interaction.user.id, interaction.values[0]);
-	}
+    }
 });
 
 client.login(config.token);

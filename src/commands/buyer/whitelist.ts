@@ -25,14 +25,14 @@ module.exports = {
         if (Request.status == 429) {
             const Embed = FedEmbed()
             .setDescription("You have exceeded your 30 requests per minute! Try again later")
-            .setColor("#ff6c6c");
+            .setColor("#ff9999");
             return await interaction.reply({ embeds: [Embed], ephemeral: true });
         }
 
         const Response = await Request.json();
         const Embed = FedEmbed()
         .setDescription(`${Response.message} <@${interaction.user.id}>`)
-        .setColor(Response.success ? "#99ff99" : "#ff6c6c");
+        .setColor(Response.success ? "#99ff99" : "#ff9999");
 
         // modern problems require modern solutions
         if (Response.success) {

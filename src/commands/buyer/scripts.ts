@@ -10,7 +10,7 @@ module.exports = {
         if (Request.status !== 200) {
             const Embed = FedEmbed()
             .setDescription(`This api key is invalid, <@${interaction.user.id}>.`)
-            .setColor("#ff6c6c");
+            .setColor("#ff9999");
             return await interaction.reply({ embeds: [Embed], ephemeral: true });
         }
 

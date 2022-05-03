@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 
+// Template for login cmd
 module.exports = {
     execute: () => {},
     Data: new SlashCommandBuilder()
