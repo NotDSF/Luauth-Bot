@@ -15,6 +15,13 @@ module.exports = {
         }
 
         const Response = await Request.json();
+        if (!Response.scripts.length) {
+            const Embed = FedEmbed()
+            .setDescription(`You don't have any scripts, <@${interaction.user.id}>.`)
+            .setColor("#ff9999");
+            return await interaction.reply({ embeds: [Embed], ephemeral: true });
+        }
+
         let Selected = [];
 
         for (let [i,v] of Object.entries(Response.scripts)) {

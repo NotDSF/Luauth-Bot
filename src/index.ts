@@ -5,7 +5,7 @@ import { Logger } from "./modules/log";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import { join } from "path";
-import { Command, FedEmbed, KeyResponse, ScriptInstance } from "./modules/types";
+import { Command, FedEmbed, ScriptInstance } from "./modules/types";
 
 const logger = new Logger("MAIN");
 const client = new Discord.Client({ 
