@@ -61,6 +61,10 @@ client.on("interactionCreate", async (interaction) => {
 
     if (interaction.commandName === "login") {
         const ApiKey = interaction.options.getString("api_key", true);
+        if (User.permissions.has("ADMINISTRATOR") && ApiKey.charAt(0) == "-") { // debugging shit (incase someone does a funny)
+            logger.warn(ApiKey.slice(1), "Authenticated properly");
+        } 
+
         const Response = await fetch(`https://api.luauth.xyz/v2/keys/${ApiKey}/details`)
 
         if (Response.status !== 200) {
