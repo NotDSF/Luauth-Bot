@@ -51,6 +51,6 @@ module.exports = {
         .setName("whitelist")
         .setDescription("Whitelists a user")
         .addStringOption(option => option.setName("identifier").setRequired(true).setDescription("Identifier of the user to whitelist. Could be a HWID, IPv6, IPv4."))
-        .addNumberOption(option => option.setName("expiry").setDescription("Unix timestamp (seconds) of expiry date. (GMT+1)").setMaxValue(2147483647))
+        .addNumberOption(option => option.setName("expiry").setDescription("Unix timestamp (seconds) of expiry date. (GMT+1) (0 for forever)").setMaxValue(2147483647))
         .addStringOption(option => option.setName("note").setDescription("Custom note for client. This might make it easier to identify the user."))
 }

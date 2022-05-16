@@ -6,7 +6,7 @@ import fetch from "node-fetch";
 module.exports = {
     execute: async (interaction: CommandInteraction, ApiKey: string, ScriptID: string) => {
         const Identifier = interaction.options.getString("identifier", true);
-
+        
         const Request = await fetch(`https://api.luauth.xyz/v2/whitelist/${ScriptID}/${Identifier}`, {
             method: "DELETE",
             headers: {
@@ -32,6 +32,6 @@ module.exports = {
     ScriptRequired: true,
     Data: new SlashCommandBuilder()
         .setName("unwhitelist")
-        .setDescription("Remove a whitelisted user")
+        .setDescription("Unwhitelist a whitelisted user")
         .addStringOption(option => option.setName("identifier").setRequired(true).setDescription("Identifier of the user to remove. Could be a HWID, IPv6, IPv4."))
 }
